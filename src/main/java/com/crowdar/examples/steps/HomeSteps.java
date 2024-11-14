@@ -3,9 +3,9 @@ package com.crowdar.examples.steps;
 import com.crowdar.core.PageSteps;
 import com.crowdar.core.actions.MobileActionManager;
 import com.crowdar.examples.constants.HomeConstants;
-import com.crowdar.examples.services.HomeService;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import java.util.NoSuchElementException;
 
 /**
  * This class handles the steps in the features files and connects with the service in case of having business logic.
@@ -13,19 +13,29 @@ import cucumber.api.java.en.When;
  */
 public class HomeSteps extends PageSteps {
 
-    @Then("Home page is displayed")
-    public void isHomePageVisible() {
-        HomeService.isViewLoaded();
+    @When("Hago click en boton Recarga")
+    public void clickBotonRecarga() {
+        try {
+            MobileActionManager.click(HomeConstants.BOTON_RECARGA);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("Error: Boton Recarga");
+        }
+
+    }
+    @When("Hago click en boton Movimientos")
+    public void clickBotonMovimientos() {
+        MobileActionManager.click(HomeConstants.BOTON_MOVIMIENTOS_NAVBAR);
     }
 
-    @When("The user changes the language")
-    public void doChangeLanguage() {
-        MobileActionManager.click(HomeConstants.CHANGE_LANGUAGE_BUTTON_LOCATOR);
-    }
+    @When("Hago click en el boton Enviar")
+    public void clickEnBotonEnvio() {MobileActionManager.click(HomeConstants.BOTON_ENVIAR_DINERO);}
 
-    @When("The user log out of the app")
-    public void doSignOut() {
-        MobileActionManager.click(HomeConstants.SIGN_OUT_BUTTON_LOCATOR);
+    @When("Hago click en el boton Ingresar")
+    public void clickEnBotonIngresar() {MobileActionManager.click(HomeConstants.BOTON_INGRESAR_DINERO);}
+
+    @When("Hago click en Perfil")
+    public void irPerfil() {
+        MobileActionManager.click(HomeConstants.BOTON_PERFIL);
     }
 
 }

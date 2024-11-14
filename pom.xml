@@ -22,6 +22,17 @@
         <crowdar.projectType.driverCapabilities.jsonFile>src/main/resources/capabilities/androidCapabilities.json</crowdar.projectType.driverCapabilities.jsonFile>
         <crowdar.remoteDriverType></crowdar.remoteDriverType>
         <crowdar.reporter.avent>true</crowdar.reporter.avent>
+        <crowdar.dispositivo>Pixel_Fold_API_35</crowdar.dispositivo>
+
+        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+        <!--   Browser Stack Profiles Parameters              -->
+        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+        <crowdar.bs.device>${env.BSDEVICE}</crowdar.bs.device>
+        <crowdar.bs.os>${env.BSOS}</crowdar.bs.os>
+        <crowdar.bs.app>${env.BSAPP}</crowdar.bs.app>
+        <crowdar.bs.hub>https://${env.BSUSER}:${env.AUTHTOKEN}@hub-cloud.browserstack.com/wd/hub</crowdar.bs.hub>
+        <crowdar.bs.capabilities>src/main/resources/capabilities/browserStackCapabilities.json</crowdar.bs.capabilities>
+
     </properties>
 
     <profiles>
@@ -31,11 +42,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <crowdar.driverHub>http://127.0.0.1:4723/wd/hub</crowdar.driverHub>
+                <crowdar.driverHub>http://127.0.0.1:4723/</crowdar.driverHub>
+                <crowdar.avd>Pixel6</crowdar.avd>
                 <cucumber.runner>testng.xml</cucumber.runner>
-                <crowdar.avd>Pixel3</crowdar.avd>
-                <crowdar.appLocation>C:\\\\Users\\\\golde\\\\Desktop\\\\lippia-mobile-sample-project\\\\sample_apk\\\\lippia.apk</crowdar.appLocation>
-                <crowdar.deviceName>Pixel3</crowdar.deviceName>
+                <crowdar.appLocation>C:\\\\workspace\\\\lippia-mobile-sample-project\\\\sample_apk\\\\ClaroPayUat.apk</crowdar.appLocation>
+                <crowdar.deviceName>Pixel6</crowdar.deviceName>
             </properties>
         </profile>
         <profile>
@@ -62,29 +73,37 @@
                 <crowdar.projectType>MOBILE_IOS</crowdar.projectType>
             </properties>
         </profile>
-    	<profile>
+        <profile>
             <id>BrowserStack</id>
             <properties>
                 <cucumber.runner>testng.xml</cucumber.runner>
-                <crowdar.deviceName>Google Pixel 3</crowdar.deviceName>
-                <crowdar.os.version>9.0</crowdar.os.version>
-                <crowdar.appLocation>bs://7e498849c478c31cba239bb5edcd0a73cd3c3fed</crowdar.appLocation>
-                <crowdar.projectType.driverCapabilities.jsonFile>src/main/resources/capabilities/browserStackCapabilities.json</crowdar.projectType.driverCapabilities.jsonFile>
-                <crowdar.driverHub>https://user:key@hub-cloud.browserstack.com/wd/hub</crowdar.driverHub>
+                <crowdar.deviceName>${crowdar.bs.device}</crowdar.deviceName>
+                <crowdar.os.version>${crowdar.bs.os}</crowdar.os.version>
+                <crowdar.appLocation>${crowdar.bs.app}</crowdar.appLocation>
+                <crowdar.projectType.driverCapabilities.jsonFile>${crowdar.bs.capabilities}</crowdar.projectType.driverCapabilities.jsonFile>
+                <crowdar.driverHub>${crowdar.bs.hub}</crowdar.driverHub>
+                <crowdar.projectType>MOBILE_ANDROID</crowdar.projectType>
             </properties>
         </profile>
     </profiles>
 
     <dependencies>
         <dependency>
-                <groupId>io.lippia</groupId>
-                <artifactId>core</artifactId>
-                <version>${project.parent.version}</version>
+            <groupId>io.lippia</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0.2</version>
         </dependency>
+
         <dependency>
             <groupId>io.lippia.report</groupId>
             <artifactId>extentreports-cucumber4-adapter</artifactId>
             <version>1.1.0.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.lippia.report</groupId>
+            <artifactId>ltm-cucumber4-adapter</artifactId>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
@@ -101,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>3.5.0</version>
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <suiteXmlFiles>
@@ -113,11 +132,10 @@
     </build>
 
     <repositories>
-		<repository>
-			<id>crowdarRepo</id>
-			<name>crowdar-repository</name>
-			<url>https://nexus-v3-repositories.automation.crowdaronline.com/repository/maven-public/</url>
-		</repository>
-	</repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
 
 </project>

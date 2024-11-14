@@ -13,6 +13,7 @@ public class Reporter extends ExtentCucumberGenericAdapter {
 
 	@Override
 	public String getScreenshotBase64() {
+		
 		return  ((TakesScreenshot) DriverManager.getDriverInstance()).getScreenshotAs(OutputType.BASE64);
 	}
 
@@ -20,4 +21,5 @@ public class Reporter extends ExtentCucumberGenericAdapter {
 	public Boolean isScreenshotDisable() {
 		return false;
 	}
+
 }
